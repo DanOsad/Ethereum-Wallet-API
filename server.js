@@ -1,7 +1,9 @@
 const express = require('express')
-const app = express()
 const bodyParser = require('body-parser')
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args))
 require('dotenv').config()
+
+const app = express()
 const PORT = process.env.PORT
 
 app.use(express.static('public'))
@@ -20,16 +22,37 @@ app.get('/', (req,res) => {
     res.sendFile(__dirname + '/index.html')
 })
 
+async function apiCall(addresses, key){
+    let address = ''
+    addresses.forEach(wallet=>address += `${wallet},`)
+    const url = `https://api.etherscan.io/api?module=account&action=balancemulti&address=${address}&tag=latest&apikey=${key},` 
+    try{
+        const response = await fetch(url)
+        const data = await response.json()
+        for (let i=0; i<addresses.length; i++) {
+            console.log(`Address: ${data.result[i]['account']}, Balance: ${data.result[i]['balance']}`)
+        }
+    }catch(error){
+        console.log(error)
+    }
+}
+
+async function getEthPrice(){
+    const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=ethereum"
+    try{
+        const response = await fetch(url)
+        const data = await response.json()
+        console.log(data[0]['current_price'])
+    }catch(error){
+        console.log(error)
+    }
+}
+
 app.post('/api', (req,res) => {
-
-    // let newAddress = req.query.address
-    // addresses = [...addresses, newAddress]
-    // console.log(req)
-
-    // const address = "0x032C91a863a69f14061747300ee4F25328E188C7"
-    const eth_key = "D5CF56J8QXTF53CI1XAGQ3R9T8RPSUKK8K"
-    console.log(req.body.wallets)
-    // apiCall(newAddress, eth_key)
+    const eth_key = process.env.KEY
+    const wallets = req.body.wallets
+    const ethPrice = getEthPrice()
+    // apiCall(wallets, eth_key)
 
 })
 

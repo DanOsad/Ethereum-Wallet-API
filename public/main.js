@@ -21,13 +21,6 @@ async function apiCall(addresses, key){
     }
 }
 
-// document.getElementById('submit').addEventListener('click', retrieve)
-
-// function retrieve() {
-//     const wallets = document.getElementById('wallets').value.split(',').map(wallet => wallet.trim())
-//     fetch()
-// }
-
 // apiCall(wallets, eth_key)
 
 document.querySelector('button').addEventListener('click', () => {
