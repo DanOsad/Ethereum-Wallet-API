@@ -29,14 +29,14 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/DanOsad/Ethereum-Wallet-API">
+  <!-- <a href="https://github.com/DanOsad/Ethereum-Wallet-API">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
+  </a> -->
 
-<h3 align="center">project_title</h3>
+<h3 align="center">Ethereum Wallet API</h3>
 
   <p align="center">
-    project_description
+    A toold for reading data from the Ethereum blockchain.
     <br />
     <a href="https://github.com/DanOsad/Ethereum-Wallet-API"><strong>Explore the docs »</strong></a>
     <br />
@@ -84,7 +84,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+A simple API with only one route built on Express.js. It's purpose is to provide some simple, but useful, data to those working with wallet data on the Ethereum blockchain. An etherscan API key is required to use this API.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -136,9 +136,26 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+You can access the API through a simple URL HTTP request by adding comma seperated ethereum wallet addresses like so:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+'''
+https://eth-parallel-api.herokuapp.com/api/ethereum,addresses,here
+'''
+
+The API returns a JSON object filled with objects. Each wallet address is it's own key, and it's returned and calculated properties are the balance in ETH (converted from WEI) and it's current value in USD (at the time of access).
+
+'''
+{
+    "wallet-address":{
+        "balance": 0000,
+        "value": 0000,
+    },
+    "wallet-address2":{
+        "balance": 0000,
+        "value": 0000,
+    },
+}
+'''
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -147,10 +164,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Store wallet addresses accessed by user, along with their date-of-access and value at that time
+- [ ] Retrieve and display historical value data on commonly accessed wallet addresses
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
@@ -221,4 +236,4 @@ Project Link: [https://github.com/DanOsad/Ethereum-Wallet-API](https://github.co
 [license-url]: https://github.com/DanOsad/Ethereum-Wallet-API/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/dan-osadtsuk/
-[product-screenshot]: https://imgur.com/a/bKlOyjp
+[product-screenshot]: https://i.imgur.com/2cVm51F.png
