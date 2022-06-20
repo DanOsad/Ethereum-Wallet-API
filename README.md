@@ -36,7 +36,7 @@
 <h3 align="center">Ethereum Wallet API</h3>
 
   <p align="center">
-    A toold for reading data from the Ethereum blockchain.
+    A tool for reading data from the Ethereum blockchain.
     <br />
     <a href="https://github.com/DanOsad/Ethereum-Wallet-API"><strong>Explore the docs »</strong></a>
     <br />
@@ -126,7 +126,7 @@ This is an example of how to list things you need to use the software and how to
    ```
 4. Enter your API in `.env`
    ```
-   KEY = 'ENTER YOUR API KEY';
+   KEY = 'ENTER YOUR API KEY'
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -138,13 +138,13 @@ This is an example of how to list things you need to use the software and how to
 
 You can access the API through a simple URL HTTP request by adding comma seperated ethereum wallet addresses like so:
 
-'''
+```
 https://eth-parallel-api.herokuapp.com/api/ethereum,addresses,here
-'''
+```
 
 The API returns a JSON object filled with objects. Each wallet address is it's own key, and it's returned and calculated properties are the balance in ETH (converted from WEI) and it's current value in USD (at the time of access).
 
-'''
+```
 {
     "wallet-address":{
         "balance": 0000,
@@ -155,7 +155,7 @@ The API returns a JSON object filled with objects. Each wallet address is it's o
         "value": 0000,
     },
 }
-'''
+```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -236,4 +236,4 @@ Project Link: [https://github.com/DanOsad/Ethereum-Wallet-API](https://github.co
 [license-url]: https://github.com/DanOsad/Ethereum-Wallet-API/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/dan-osadtsuk/
-[product-screenshot]: https://i.imgur.com/2cVm51F.png
+[product-screenshot]: https://i.imgur.com/KbuXTkx.png
