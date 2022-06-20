@@ -8,19 +8,45 @@ const PORT = 8000
 app.use(cors())
 app.use(express.json())
 
-app.get('/api/:addresses', async (request, response) => {
-    const key = process.env.KEY
-    const address = request.params.addresses
-    async function apiCall(key, addresses) {
-        try{
-            const response = await fetch(`https://api.etherscan.io/api?module=account&action=balancemulti&address=${addresses}&tag=latest&apikey=${key}`)
-            const data = await response.json()
-            return data
-        }catch(error){
-            console.log(error)
-        }
+async function apiCall(key, addresses) {
+    try{
+        const response = await fetch(`https://api.etherscan.io/api?module=account&action=balancemulti&address=${addresses}&tag=latest&apikey=${key}`)
+        const data = await response.json()
+        return data.result
+    }catch(error){
+        console.log(error)
     }
-    response.json(await apiCall(key, address))
+}
+
+async function getEthPrice(){
+    const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=ethereum"
+    try{
+        const response = await fetch(url)
+        const data = await response.json()
+        return data[0]['current_price']
+    }catch(error){
+        console.log(error)
+    }
+}
+
+const weiToEth = num => {
+    return num * 10**-18
+}
+
+app.get('/api/:addresses', async (req, res) => {
+    const ethPrice = await getEthPrice()
+    const key = process.env.KEY
+    const address = req.params.addresses
+    const data = await apiCall(key, address)
+    let balanceObj = {}
+    for (let i=0; i<data.length; i++) {
+        let wallet = data[i].account
+        balanceObj[`${wallet}`] = {}
+        balanceObj[`${wallet}`].balance = weiToEth(data[i].balance) // IN ETH
+        balanceObj[`${wallet}`].value = balanceObj[`${wallet}`].balance * ethPrice // IN USD
+    }
+    res.json(balanceObj)
+
 })
 
 app.listen(process.env.PORT || PORT, () => {
