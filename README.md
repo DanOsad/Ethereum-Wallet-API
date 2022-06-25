@@ -203,24 +203,11 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Daniel Osadtsuk - [@DanOsad](https://twitter.com/DanOsad) - email@email_client.com
+Daniel Osadtsuk - [@DanOsad](https://twitter.com/DanOsad) - dan@osadtsuk.com
 
 Project Link: [https://github.com/DanOsad/Ethereum-Wallet-API](https://github.com/DanOsad/Ethereum-Wallet-API)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
