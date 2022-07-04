@@ -54,10 +54,13 @@ app.get('/api/:addresses', async (req, res) => {
     let balanceObj = {}
     for (let i=0; i<data.length; i++) {
         let wallet = data[i].account
+        let usdcValue = await usdcApiCall(key, wallet) * usdcToFiat
         balanceObj[`${wallet}`] = {}
         balanceObj[`${wallet}`].balance = weiToEth(data[i].balance) // IN ETH
         balanceObj[`${wallet}`].value = balanceObj[`${wallet}`].balance * ethPrice // IN USD
-        balanceObj[`${wallet}`].usdc =  await usdcApiCall(key, wallet) * usdcToFiat //usdcToFiat(usdcApiCall(key, wallet))
+        // balanceObj[`${wallet}`].usdc =  await usdcApiCall(key, wallet) * usdcToFiat //usdcToFiat(usdcApiCall(key, wallet))
+        balanceObj[`${wallet}`].usdc = usdcValue == null ? 0 : usdcValue //usdcToFiat(usdcApiCall(key, wallet))
+
     }
     res.json(balanceObj)
 })
