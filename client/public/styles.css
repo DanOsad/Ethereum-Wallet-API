@@ -126,29 +126,37 @@ button {
     display: flex;
     flex-direction: row;
     height: 3rem;
-    width: 80%;
+    min-width: 90%;
 }
 
 .cell {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     gap: 1rem;
-    flex: auto;
+    /* flex: auto; */
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     border: 1px solid #dddddd;
     background-color: #e6e6e6;
+    padding-left: 1rem;
 }
 
 .address {
     font-weight: 700;
-    padding: 1rem;
+    width: 32rem;
+    /* padding: 1rem; */
 }
 
 .eth, .usdc {
     font-weight: 400;
-    padding: 1rem;
+    width: 14rem;
+    /* padding: 1rem; */
+}
+
+.usd {
+    font-weight: 400;
+    width: 12rem;
 }
 
 .icon {

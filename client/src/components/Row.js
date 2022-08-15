@@ -5,7 +5,6 @@ import usdcIcon from '../images/usdc.svg'
 import usdIcon from '../images/usd.svg'
 
 const Row = (props) => {
-    // props: address, ethBalance, usd, usdcBalance
 
     const [isClicked, setIsClicked] = useState(false)
 
@@ -25,15 +24,15 @@ const Row = (props) => {
             </span>
             <span className='cell eth' onClick={handleClick} style={styles}>
                 <img src={ethIcon} alt='ethIcon' className='icon eth-icon' />
-                {props.ethBalance}
+                {props.ethBalance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 10})}
             </span>
             <span className='cell usd' onClick={handleClick} style={styles}>
                 <img src={usdIcon} alt='usdIcon' className='icon usd-icon' />
-                {`$${props.usd}`}
+                {`$${props.usd.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}
             </span>
             <span className='cell usdc' onClick={handleClick} style={styles}>
                 <img src={usdcIcon} alt='usdcIcon' className='icon usdc-icon' />
-                {props.usdcBalance}
+                {props.usdcBalance.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
             </span>
         </div>
     )

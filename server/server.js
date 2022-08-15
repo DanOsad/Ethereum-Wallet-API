@@ -29,8 +29,6 @@ async function ethApiCall(key, addresses) {
     }
 }
 
-
-
 async function getEthPrice(){
     const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=ethereum"
     try{
@@ -51,16 +49,17 @@ app.get('/api/:addresses', async (req, res) => {
     const key = process.env.KEY
     const address = req.params.addresses
     const data = await ethApiCall(key, address)
-    let balanceObj = {}
+    let balanceObj = []
     for (let i=0; i<data.length; i++) {
         let wallet = data[i].account
-        let usdcValue = await usdcApiCall(key, wallet) * usdcToFiat
-        balanceObj[`${wallet}`] = {}
-        balanceObj[`${wallet}`].balance = weiToEth(data[i].balance) // IN ETH
-        balanceObj[`${wallet}`].value = balanceObj[`${wallet}`].balance * ethPrice // IN USD
-        // balanceObj[`${wallet}`].usdc =  await usdcApiCall(key, wallet) * usdcToFiat //usdcToFiat(usdcApiCall(key, wallet))
-        balanceObj[`${wallet}`].usdc = usdcValue == null ? 0 : usdcValue //usdcToFiat(usdcApiCall(key, wallet))
-
+        let usdcValue = await usdcApiCall(key, wallet) //* usdcToFiat
+        walletObj = {}
+        walletObj.address = data[i].account//`${wallet}`
+        walletObj.ethBalance = weiToEth(data[i].balance) // IN ETH
+        walletObj.usd = walletObj.ethBalance * ethPrice // IN USD
+        walletObj.usdcBalance = usdcValue// ? usdcValue : 0 //usdcToFiat(usdcApiCall(key, wallet))
+        balanceObj.push(walletObj)
+        setTimeout(() => null, 1000)
     }
     res.json(balanceObj)
 })
