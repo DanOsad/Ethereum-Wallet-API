@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/sortable-theme-dark.css" />
+    <title>Ethereum Wallet Checker</title>
+</head>
+<body>
+    <h1>Simple Site to Aggregate Data from Multiple Ethereum Wallets</h1>
+    <textarea name="wallets" id="wallets" cols="50" rows="10" placeholder="Enter upto 20 addresses separated by commas..."></textarea>
+    <button id="submit">Click Me</button>
+    <h2>Result: </h2>
+    <div id="apiResults">
+        <table class="results" id="results">
+            <caption>Wallet Data</caption>
+            <thead>
+            <tr>
+                <th>Wallet Address</th>
+                <th>Eth</th>
+                <th>USD</th>
+                <th>USDC</th>
+            </tr>
+            </thead>
+            <tbody>
+        
+            </tbody>
+        </table>
+    </div>
+    <button id="csv">Download CSV</button>
+    <!-- SCRIPTS -->
+    <script src='js/main.js'></script>
+    <script src="js/sortable.min.js"></script>
+</body>
+</html>

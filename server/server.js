@@ -8,7 +8,7 @@ const PORT = 8000
 app.use(cors())
 app.use(express.json())
 
-async function usdcApiCall(key, address) {
+const usdcApiCall = async (key, address) => {
     const contractAddress = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
     try{
         const response = await fetch(`https://api.etherscan.io/api?contractaddress=${contractAddress}&address=${address}&tag=latest&apikey=${key}&module=account&action=tokenbalance`)
@@ -19,7 +19,7 @@ async function usdcApiCall(key, address) {
     }
 }
 
-async function ethApiCall(key, addresses) {
+const ethApiCall = async (key, addresses) => {
     try{
         const response = await fetch(`https://api.etherscan.io/api?module=account&action=balancemulti&address=${addresses}&tag=latest&apikey=${key}`)
         const data = await response.json()
@@ -29,9 +29,7 @@ async function ethApiCall(key, addresses) {
     }
 }
 
-
-
-async function getEthPrice(){
+const getEthPrice = async () => {
     const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=ethereum"
     try{
         const response = await fetch(url)
@@ -42,27 +40,38 @@ async function getEthPrice(){
     }
 }
 
-const usdcToFiat = 10**-6
+const convertUsdcToUsd = num => {
+    return num * 10**-6
+}
 
-const weiToEth = num => num * 10**-18
+const convertWeiToEth = num => {
+    return num * 10**-18
+}
+
+const cleanAddresses = str => {
+    return str.split('').filter(elem => elem !== ' ').join('')
+}
 
 app.get('/api/:addresses', async (req, res) => {
     const ethPrice = await getEthPrice()
-    const key = process.env.KEY
-    const address = req.params.addresses
-    const data = await ethApiCall(key, address)
-    let balanceObj = {}
-    for (let i=0; i<data.length; i++) {
-        let wallet = data[i].account
-        let usdcValue = await usdcApiCall(key, wallet) * usdcToFiat
-        balanceObj[`${wallet}`] = {}
-        balanceObj[`${wallet}`].balance = weiToEth(data[i].balance) // IN ETH
-        balanceObj[`${wallet}`].value = balanceObj[`${wallet}`].balance * ethPrice // IN USD
-        // balanceObj[`${wallet}`].usdc =  await usdcApiCall(key, wallet) * usdcToFiat //usdcToFiat(usdcApiCall(key, wallet))
-        balanceObj[`${wallet}`].usdc = usdcValue == null ? 0 : usdcValue //usdcToFiat(usdcApiCall(key, wallet))
-
+    const ethKey = process.env.ETH_KEY
+    const usdcKey = process.env.USDC_KEY
+    const walletAddresses = cleanAddresses(req.params.addresses)
+    const etherscanData = await ethApiCall(ethKey, walletAddresses)
+    let walletList = []
+    for (let i=0; i<etherscanData.length; i++) {
+        let address = etherscanData[i].account
+        let usdcValue = await usdcApiCall(usdcKey, address)
+        let wallet = {  
+                        address: address,
+                        ethBalance: convertWeiToEth(etherscanData[i].balance),
+                        usd: convertWeiToEth(etherscanData[i].balance) * ethPrice,
+                        usdcBalance: convertUsdcToUsd(usdcValue)
+                    }
+        walletList.push(wallet)
     }
-    res.json(balanceObj)
+    console.log(walletList)
+    res.status(200).json(walletList)
 })
 
 app.listen(process.env.PORT || PORT, () => {
