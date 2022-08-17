@@ -49,7 +49,7 @@ const convertWeiToEth = num => {
 }
 
 const cleanAddresses = str => {
-    return str.split('').filter(elem => elem !== ' ').join('')
+    return str.replaceAll(' ', '')
 }
 
 app.get('/api/:addresses', async (req, res) => {
@@ -70,7 +70,6 @@ app.get('/api/:addresses', async (req, res) => {
                     }
         walletList.push(wallet)
     }
-    console.log(walletList)
     res.status(200).json(walletList)
 })
 

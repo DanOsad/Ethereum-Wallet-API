@@ -13,7 +13,8 @@ const Row = (props) => {
     }
 
     const styles = {
-        backgroundColor: isClicked ? "#eba85b" : ""
+        backgroundColor: isClicked ? "#eba85b" : "",
+        borderColor: isClicked ? "#eba85b" : ""
     }
 
     return (
