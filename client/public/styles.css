@@ -168,12 +168,6 @@ button {
     padding-bottom: 0.2rem;
 }
 
-.eth-icon {
-}
-
-.usdc-icon {
-}
-
 .export-container {
     display: flex;
     flex-direction: row;
@@ -186,6 +180,29 @@ button {
     margin-top: 1.5rem;
     color: #FFFFFF;
     background-color: #9f9f9f;
+}
+
+.small-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    height: 100%;
+}
+.small-screen-title, .small-screen-subtitle {
+    font-family: 'Karla', sans-serif;
+    font-size: 2rem;
+    font-weight: 500;
+}
+.small-screen-subtitle {
+    font-size: 1rem;
+}
+
+.small-screen-width {
+    font-family: 'Inter', sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
 }
 
 /* FONTS */
